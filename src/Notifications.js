@@ -1,3 +1,5 @@
+// Desictiption of notificaitons are html - sanitizing before injecting to page for security.
+import sanitizeHtml from 'sanitize-html';
 
 // Toggle of notificaion bar.
 const handleToggle = (id) => {
@@ -51,7 +53,7 @@ const Notifications = ({NotifData, PageTitle, handleDelete}) => {
                       <button className='button is-normal' onClick={() => handleDelete(notif.title)}>Delete</button>
                     </div>
                     <div className="column is-10">
-                    <div>{notif.desc}</div>
+                    <div dangerouslySetInnerHTML={{__html: sanitizeHtml(notif.desc) }}></div>
                     </div>
                 </div>
             </div>
