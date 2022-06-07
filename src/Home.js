@@ -3,17 +3,7 @@ import Notifications from "./Notifications";
 import useFetch from "./useFetch";
 
 const Home = () => {
-	
-	const [data, setData] = useState([]);
-	useEffect(() => {
-		fetch("./data/data.json")
-		.then((response) => response.json())
-		.then((json) => {
-			console.log(json);
-			setData(json.notifications)
-		});
-	});
-
+	const { data, isPending, isEmpty, error, setData, setEmpty } = useFetch("./data/data.json");
 
     // fetch("./data/data.json")
     //   .then((response) => response.json())
@@ -23,7 +13,10 @@ const Home = () => {
 
 	return (
 		<div className="container">
-			<Notifications NotifData={data} />
+      {data && <Notifications NotifData={data} PageTitle = "Notifications"/>}
+			{error && <div>{ error }</div>}
+      {isPending && <div>Loading...</div>}
+      {isEmpty && <div className="box has-text-centered py-5 mt-5" >You have no notifications.</div>}
 		</div>
 	);
 }
