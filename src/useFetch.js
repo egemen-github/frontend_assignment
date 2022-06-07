@@ -19,7 +19,11 @@ const useFetch = (url) => {
 				if(data.notifications.length === 0) { 
 					setEmpty(true)
 					console.log(data.notifications.length)
-				} else {				
+				} else {
+					// Sorting by Date
+					data.notifications.sort(function(a,b){
+						return new Date(b.date) - new Date(a.date)
+					})				
 					setEmpty(false)
 					setData(data.notifications)
 				}
